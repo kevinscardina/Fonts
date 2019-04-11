@@ -57,8 +57,8 @@ class ViewController: UIViewController {
             label.translatesAutoresizingMaskIntoConstraints = false
             label.adjustsFontForContentSizeCategory = true
             label.numberOfLines = 0
-            if isCustom, let customFont = UIFont(name: "Papyrus", size: UIFont.labelFontSize) {
-                label.font = UIFontMetrics(forTextStyle: tuple.0).scaledFont(for: customFont)
+            if isCustom {
+                label.font = UIFontMetrics(forTextStyle: tuple.0).scaledFont(for: UIFont.systemFont(ofSize: 32))
             } else {
                 label.font = UIFont.preferredFont(forTextStyle: tuple.0)
             }
