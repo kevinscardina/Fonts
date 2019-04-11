@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        refreshView()
+        layoutView()
     }
     
     @IBAction func switchChanged(_ sender: Any?) {
@@ -29,10 +29,10 @@ class ViewController: UIViewController {
         
         isCustom = swtch.isOn
         
-        refreshView()
+        layoutView()
     }
     
-    private func refreshView() {
+    private func layoutView() {
         view.subviews.forEach { $0.removeFromSuperview() }
         
         let swtch = UISwitch()
@@ -57,11 +57,11 @@ class ViewController: UIViewController {
             label.translatesAutoresizingMaskIntoConstraints = false
             label.adjustsFontForContentSizeCategory = true
             label.numberOfLines = 0
-            var font = UIFont.preferredFont(forTextStyle: tuple.0)
             if isCustom, let customFont = UIFont(name: "Papyrus", size: UIFont.labelFontSize) {
-                font = customFont
+                label.font = UIFontMetrics(forTextStyle: tuple.0).scaledFont(for: customFont)
+            } else {
+                label.font = UIFont.preferredFont(forTextStyle: tuple.0)
             }
-            label.font = UIFontMetrics(forTextStyle: tuple.0).scaledFont(for: font)
             label.text = tuple.1
             scrollView.addSubview(label)
             label.topAnchor.constraint(equalTo: previousLabel == nil ? scrollView.topAnchor : previousLabel!.layoutMarginsGuide.bottomAnchor, constant: 18).isActive = true
